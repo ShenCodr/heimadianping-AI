@@ -11,8 +11,8 @@ import reactor.core.publisher.Flux;
         wiringMode = AiServiceWiringMode.EXPLICIT,
         chatModel = "openAiChatModel",
         streamingChatModel = "openAiStreamingChatModel",
-        chatMemoryProvider = "chatMemoryProvider"// 注入记忆组件提供者
-        //, contentRetriever = "contentRetriever" // 注入内容检索器
+        chatMemoryProvider = "chatMemoryProvider",// 注入记忆组件提供者
+        contentRetriever = "contentRetriever" // 注入内容检索器
 )
 public interface ConsultantService {
     @SystemMessage(fromResource = "system.txt")

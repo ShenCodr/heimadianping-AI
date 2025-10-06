@@ -12,10 +12,8 @@ import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 import dev.langchain4j.store.memory.chat.ChatMemoryStore;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import java.util.List;
 
 @Configuration
@@ -57,28 +55,28 @@ public class CommonConfig {
         };
     }
 
-//    @Bean
-//    public EmbeddingStore store(){
-//        //TODO 返回向量存储组件对象
-//        // 1.加载文档进内存
-//        List<Document> documents = ClassPathDocumentLoader.loadDocuments("content");
-//        // 2.创建向量存储组件对象
-//        InMemoryEmbeddingStore store = new InMemoryEmbeddingStore();
-//        // 3.把文档转换为向量并存储到向量存储组件对象中
-//        EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor
-//                .builder()
-//                .embeddingStore(store)
-//                .build();
-//        ingestor.ingest(documents);
-//        return store;
-//    }
-//
-//    @Bean
-//    public ContentRetriever contentRetriever(EmbeddingStore store){
-//        return EmbeddingStoreContentRetriever.builder()
-//                .embeddingStore(store)//设置向量数据库操作对象
-//                .minScore(0.5)//设置最小分数
-//                .maxResults(3)//设置最大片段数量
-//                .build();
-//    }
+    @Bean
+    public EmbeddingStore store(){
+        // 返回向量存储组件对象
+        // 1.加载文档进内存
+        List<Document> documents = ClassPathDocumentLoader.loadDocuments("content");
+        // 2.创建向量存储组件对象
+        InMemoryEmbeddingStore store = new InMemoryEmbeddingStore();
+        // 3.把文档转换为向量并存储到向量存储组件对象中
+        EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor
+                .builder()
+                .embeddingStore(store)
+                .build();
+        ingestor.ingest(documents);
+        return store;
+    }
+
+    @Bean
+    public ContentRetriever contentRetriever(EmbeddingStore store){
+        return EmbeddingStoreContentRetriever.builder()
+                .embeddingStore(store)//设置向量数据库操作对象
+                .minScore(0.5)//设置最小分数
+                .maxResults(3)//设置最大片段数量
+                .build();
+    }
 }
