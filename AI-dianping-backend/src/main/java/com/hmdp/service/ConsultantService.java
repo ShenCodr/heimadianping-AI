@@ -13,6 +13,7 @@ import reactor.core.publisher.Flux;
         streamingChatModel = "openAiStreamingChatModel",
         chatMemoryProvider = "chatMemoryProvider",// 注入记忆组件提供者
         contentRetriever = "contentRetriever" // 注入内容检索器
+        , tools = "reservationTool"
 )
 public interface ConsultantService {
     @SystemMessage(fromResource = "system.txt")

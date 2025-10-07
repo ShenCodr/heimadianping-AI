@@ -1,7 +1,7 @@
 package com.hmdp.mapper;
 
-import com.hmdp.entity.UserInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.hmdp.entity.Reservation;
 
 /**
  * <p>
@@ -11,6 +11,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author ShenCodr
  * @since 2025-10-07
  */
-public interface UserInfoMapper extends BaseMapper<UserInfo> {
-
+public interface ReservationMapper extends BaseMapper<Reservation> {
 }

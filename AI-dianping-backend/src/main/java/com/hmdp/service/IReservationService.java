@@ -1,7 +1,7 @@
 package com.hmdp.service;
 
-import com.hmdp.entity.UserInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hmdp.entity.Reservation;
 
 /**
  * <p>
@@ -11,6 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author ShenCodr
  * @since 2025-10-07
  */
-public interface IUserInfoService extends IService<UserInfo> {
-
+public interface IReservationService extends IService<Reservation> {
 }

@@ -164,6 +164,10 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
             return;
         }
         Long userId = user.getId();
+        if (userId == null) {
+            // 用户ID为空，同样无需查询
+            return;
+        }
         String key = RedisConstants.BLOG_LIKED_KEY + blog.getId();
         Double score = stringRedisTemplate.opsForZSet().score(key, userId.toString());
         if(score != null){
