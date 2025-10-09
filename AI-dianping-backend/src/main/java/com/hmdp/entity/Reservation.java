@@ -1,5 +1,6 @@
 package com.hmdp.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,7 +38,7 @@ public class Reservation {
     /**
      * 预约时间
      */
-    private LocalDateTime dateTime;
+    private LocalDateTime reservationTime;
 
     /**
      * 预约状态 0：待确认 1：已确认

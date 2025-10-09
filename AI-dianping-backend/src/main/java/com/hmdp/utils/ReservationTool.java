@@ -29,7 +29,7 @@ public class ReservationTool {
             @P("商户id") Long shopId,
             @P("预约时间, 格式为 yyyy-MM-dd HH:mm:ss") LocalDateTime reservationTime
     ) {
-        // 1. 从 UserHolder 获取当前登录的用户信息
+        // 1. 直接使用当前登录的用户信息
         UserDTO user = UserHolder.getUser();
         if (user == null) {
             return "无法获取当前用户信息，请先登录。";
@@ -46,8 +46,8 @@ public class ReservationTool {
     }
 
     @Tool("查询我的预约信息")
-    public List<Reservation> findMyReservation() {
-        // 1. 从 UserHolder 获取当前登录的用户ID
+    public List<Reservation> findMyReservation( ) {
+        // 1. 直接当前登录的用户ID
         UserDTO user = UserHolder.getUser();
         if (user == null) {
             // 或者可以抛出异常，让AI知道出错了
