@@ -8,6 +8,8 @@ import dev.langchain4j.agent.tool.P;
 import dev.langchain4j.agent.tool.Tool;
 import org.springframework.stereotype.Component;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import java.time.LocalDateTime;
@@ -27,8 +29,16 @@ public class ReservationTool {
     @Tool("预约店铺服务，需要提供店铺ID和预约时间")
     public String addReservation(
             @P("商户id") Long shopId,
-            @P("预约时间, 格式为 yyyy-MM-dd HH:mm:ss") LocalDateTime reservationTime
+            @P("预约时间, 格式为 yyyy-MM-dd HH:mm:ss") String reservationTime
     ) {
+        // 手动解析字符串为 LocalDateTime
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime dateTime;
+        try {
+            dateTime = LocalDateTime.parse(reservationTime, formatter);
+        } catch (DateTimeParseException e) {
+            return "预约时间格式不正确，请使用 yyyy-MM-dd HH:mm:ss 格式。";
+        }
         // 1. 直接使用当前登录的用户信息
         UserDTO user = UserHolder.getUser();
         if (user == null) {
@@ -38,8 +48,13 @@ public class ReservationTool {
         String userPhone = userService.getById(userId).getPhone();
 
         // 2. 创建并保存预约
-        Reservation reservation = new Reservation(null, userId, userPhone,
-                shopId, reservationTime, 0, LocalDateTime.now());
+        Reservation reservation = new Reservation();
+        reservation.setUserId(userId);
+        reservation.setUserPhone(userPhone);
+        reservation.setShopId(shopId);
+        reservation.setReservationTime(dateTime); // 使用解析后的 dateTime
+        reservation.setStatus(0);
+        reservation.setCreateTime(LocalDateTime.now());
         reservationService.save(reservation);
 
         return "预约成功！";
