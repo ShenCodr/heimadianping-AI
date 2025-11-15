@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: hm-dianping
+    #配置数据库连接信息
+  datasource:
+    url: jdbc:mysql://localhost:3306/hmdp
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  data:
+    redis:
+      host: 192.168.100.128
+      port: 6379
+      password: 123321
+      lettuce:
+        pool:
+          max-active: 10
+          max-idle: 10
+          min-idle: 1
+          time-between-eviction-runs: 10s
+      database: 0
+  jackson:
+    default-property-inclusion: non_null # JSON处理时忽略非空字段
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 60MB
+mybatis-plus:
+  type-aliases-package: com.hmdp.entity # 别名扫描包
+logging:
+  level:
+    com.hmdp: debug
+server:
+  port: 8081
+# 配置ai模型
+langchain4j:
+  open-ai:
+    chat-model:
+      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
+      api-key: ${API-KEY}
+      model-name: qwen-flash
+      log-requests: true
+      log-responses: true
+    streaming-chat-model:
+      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
+      api-key: ${API-KEY}
+      model-name: qwen-flash
+      log-requests: true
+      log-responses: true
+    embedding-model:
+      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
+      api-key: ${API-KEY}
+      model-name: text-embedding-v4
+      log-requests: true
+      log-responses: true
